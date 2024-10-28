@@ -1,11 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <SurfaceView
-        android:id="@+id/camera_preview"
+    <!-- Flutter View (it should be the root view of Flutter) -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/flutter_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
-</FrameLayout>
+    <TextureView
+        android:id="@+id/camera_preview_texture"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+       android:layout_gravity="top"/>    <!--Adjust positioning -->
+</RelativeLayout>

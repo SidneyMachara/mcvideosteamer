@@ -55,6 +55,12 @@ class _StreamingScreenState extends State<StreamingScreen> {
   void initState() {
     super.initState();
     requestPermissions();
+
+    Future.microtask(() {
+      Future.delayed(const Duration(seconds: 3), () {
+        platform.invokeMethod('initCameraPreview');
+      });
+    });
   }
 
   static const platform = MethodChannel('srt_streaming_channel');
@@ -62,7 +68,7 @@ class _StreamingScreenState extends State<StreamingScreen> {
 
   Future<void> startStream() async {
     try {
-      var res = await platform.invokeMethod(
+      await platform.invokeMethod(
         'startStream',
         {
           "ip": "5.161.66.194",
@@ -93,11 +99,16 @@ class _StreamingScreenState extends State<StreamingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('SRT Camera Streaming'),
+        title: const Text('SRT Camera Streaming'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: Stack(
         children: <Widget>[
+          Container(
+            color: Colors.green[100],
+            height: MediaQuery.of(context).size.height,
+            width: double.infinity,
+            child: const AndroidView(viewType: "camera-preview-view"),
+          ),
           ElevatedButton(
             onPressed: isStreaming ? stopStream : startStream,
             child: Text(isStreaming ? 'Stop Streaming' : 'Start Streaming'),
