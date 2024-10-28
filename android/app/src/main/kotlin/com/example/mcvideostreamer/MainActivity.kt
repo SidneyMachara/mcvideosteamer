@@ -2,7 +2,6 @@ package com.example.mcvideostreamer
 
 import CameraPreviewViewFactory
 import Configuration
-import android.graphics.SurfaceTexture
 import android.media.MediaFormat
 import android.os.Bundle
 import android.util.Size
@@ -105,35 +104,36 @@ class MainActivity : FlutterActivity() {
             val textureView = cameraPreviewFactory.getCameraPreviewView()!!.view as TextureView
             streamer.startPreview(Surface(textureView.surfaceTexture))
             println("==============>  got textureView")
-            textureView.surfaceTextureListener =
-                    object : TextureView.SurfaceTextureListener {
-                        override fun onSurfaceTextureAvailable(
-                                surface: SurfaceTexture,
-                                width: Int,
-                                height: Int
-                        ) {
-                            try {
-                                println("<========Preview on===========>")
-                                streamer.startPreview(Surface(surface))
-                                println("<========Preview on on===========>")
-                            } catch (e: Exception) {
-                                println("<==================>")
-                                println(e.message)
-                            }
-                        }
+            // textureView.surfaceTextureListener =
+            //         object : TextureView.SurfaceTextureListener {
+            //             override fun onSurfaceTextureAvailable(
+            //                     surface: SurfaceTexture,
+            //                     width: Int,
+            //                     height: Int
+            //             ) {
+            //                 try {
+            //                     println("<========Preview on===========>")
+            //                     streamer.startPreview(Surface(surface))
+            //                     println("<========Preview on on===========>")
+            //                 } catch (e: Exception) {
+            //                     println("<==================>")
+            //                     println(e.message)
+            //                 }
+            //             }
 
-                        override fun onSurfaceTextureSizeChanged(
-                                surface: SurfaceTexture,
-                                width: Int,
-                                height: Int
-                        ) {}
-                        override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
-                            // Clean up resources here
-                            return true
-                        }
+            //             override fun onSurfaceTextureSizeChanged(
+            //                     surface: SurfaceTexture,
+            //                     width: Int,
+            //                     height: Int
+            //             ) {}
+            //             override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean
+            // {
+            //                 // Clean up resources here
+            //                 return true
+            //             }
 
-                        override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {}
-                    }
+            //             override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {}
+            //         }
             println("==============> Done done")
         } catch (e: Exception) {
             println("<==================>")
